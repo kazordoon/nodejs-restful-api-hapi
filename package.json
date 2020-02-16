@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-api-hapi",
+  "version": "1.0.0",
+  "description": "API RESTful created with Node.js",
+  "main": "src/server.js",
+  "repository": "git@github.com:kazordoon/nodejs-api-hapi.git",
+  "author": "Felipe Barros <felipetech@tuta.io>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "dependencies": {
+    "@hapi/hapi": "^19.1.1",
+    "dotenv-safe": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.0",
+    "nodemon": "^2.0.2"
+  }
+}
