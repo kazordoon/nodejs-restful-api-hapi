@@ -1,6 +1,9 @@
 require('dotenv-safe').config()
 const Hapi = require('@hapi/hapi')
 
+// Database connection
+require('./config/database')(process.env.MONGODB_URL)
+
 const init = async () => {
   const server = Hapi.server({
     host: process.env.HOST,
