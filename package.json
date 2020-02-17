@@ -13,6 +13,7 @@
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
     "dotenv-safe": "^8.2.0",
+    "hapi-router": "^5.0.0",
     "mongoose": "^5.9.1"
   },
   "devDependencies": {
