@@ -1,60 +1,42 @@
+const productsHandlers = require('./handlers/productsHandlers')
+const usersHandlers = require('./handlers/usersHandlers')
+
 module.exports = [
   /** users **/
   {
     method: 'POST',
     path: '/register',
-    handler: (request, h) => {
-      const { path, method } = request
-      return { path, method }
-    }
+    handler: usersHandlers.register
   },
   {
     method: 'POST',
     path: '/login',
-    handler: (request, h) => {
-      const { path, method } = request
-      return { path, method }
-    }
+    handler: usersHandlers.login
   },
   /** products **/
   {
     method: 'GET',
     path: '/products',
-    handler: (request, h) => {
-      const { path, method } = request
-      return { path, method }
-    }
+    handler: productsHandlers.getAll
   },
   {
     method: 'GET',
     path: '/products/{idProduct}',
-    handler: (request, h) => {
-      const { path, method } = request
-      return { path, method }
-    }
+    handler: productsHandlers.getOne
   },
   {
     method: 'POST',
     path: '/products',
-    handler: (request, h) => {
-      const { path, method } = request
-      return { path, method }
-    }
+    handler: productsHandlers.create
   },
   {
     method: 'PATCH',
     path: '/products/{idProduct}',
-    handler: (request, h) => {
-      const { path, method } = request
-      return { path, method }
-    }
+    handler: productsHandlers.update
   },
   {
     method: 'DELETE',
     path: '/products/{idProduct}',
-    handler: (request, h) => {
-      const { path, method } = request
-      return { path, method }
-    }
+    handler: productsHandlers.delete
   }
 ]
