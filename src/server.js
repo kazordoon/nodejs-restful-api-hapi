@@ -1,6 +1,7 @@
 require('dotenv-safe').config()
 const Hapi = require('@hapi/hapi')
-const hapiRouter = require('hapi-router')
+
+const routes = require('./routes')
 
 // Database connection
 require('./config/database')(process.env.MONGODB_URL)
@@ -11,12 +12,7 @@ const init = async () => {
     port: process.env.PORT
   })
 
-  await server.register({
-    plugin: hapiRouter,
-    options: {
-      routes: 'src/routes.js'
-    }
-  })
+  await server.route(routes)
 
   await server.start()
   console.log(`Server running on ${server.info.uri}`)
