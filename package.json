@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
+    "@hapi/joi": "^17.1.0",
     "bcrypt": "^3.0.8",
     "dotenv-safe": "^8.2.0",
     "mongoose": "^5.9.1"

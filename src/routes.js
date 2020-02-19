@@ -1,12 +1,23 @@
 const productsHandlers = require('./handlers/productsHandlers')
 const usersHandlers = require('./handlers/usersHandlers')
 
+const userSchema = require('./schemas/userSchema')
+const {
+  productSchema,
+  productSchemaRequired
+} = require('./schemas/productSchema')
+
 module.exports = [
   /** users **/
   {
     method: 'POST',
     path: '/register',
-    handler: usersHandlers.register
+    handler: usersHandlers.register,
+    options: {
+      validate: {
+        payload: userSchema
+      }
+    }
   },
   {
     method: 'POST',
@@ -27,12 +38,22 @@ module.exports = [
   {
     method: 'POST',
     path: '/products',
-    handler: productsHandlers.create
+    handler: productsHandlers.create,
+    options: {
+      validate: {
+        payload: productSchemaRequired
+      }
+    }
   },
   {
     method: 'PATCH',
     path: '/products/{idProduct}',
-    handler: productsHandlers.update
+    handler: productsHandlers.update,
+    options: {
+      validate: {
+        payload: productSchema
+      }
+    }
   },
   {
     method: 'DELETE',
