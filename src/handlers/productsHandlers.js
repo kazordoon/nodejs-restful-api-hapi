@@ -1,3 +1,5 @@
+const boom = require('@hapi/boom')
+
 const Product = require('../models/Product')
 
 module.exports = {
@@ -6,22 +8,24 @@ module.exports = {
       const products = await Product.find()
       return h.response(products)
     } catch (err) {
-      return h.response({ error: 'Could not list all existing products' }).code(500)
+      const errorMessage = 'Could not list all existing products'
+      return boom.internal(errorMessage)
     }
   },
   async getOne (request, h) {
+    const errorMessage = 'This product does not exists'
     try {
       const { idProduct } = request.params
 
       const product = await Product.findById(idProduct)
 
       if (!product) {
-        return h.response().code(404)
+        return boom.notFound(errorMessage)
       }
 
       return h.response(product)
     } catch (err) {
-      return h.response({ error: 'Could not list this product' }).code(400)
+      return boom.notFound(errorMessage)
     }
   },
   async create (request, h) {
@@ -29,13 +33,15 @@ module.exports = {
       const productExists = await Product.findOne({ name: request.payload.name })
 
       if (productExists) {
-        return h.response({ error: 'This product already exists' }).code(409)
+        const errorMessage = 'This product already exists'
+        return boom.conflict(errorMessage)
       }
 
       const product = await Product.create(request.payload)
       return h.response(product).code(201)
     } catch (err) {
-      return h.response({ error: 'Could not create a new product' }).code(406)
+      const errorMessage = 'Could not create a new product'
+      return boom.notAcceptable(errorMessage)
     }
   },
   async update (request, h) {
@@ -46,13 +52,15 @@ module.exports = {
       const productDoesNotExists = !(await Product.findById(idProduct))
 
       if (productDoesNotExists) {
-        return h.response().code(404)
+        const errorMessage = 'This product does not exists'
+        return boom.notFound(errorMessage)
       }
 
       const product = await Product.findByIdAndUpdate(idProduct, request.payload, options)
       return h.response(product).code(201)
     } catch (err) {
-      return h.response({ error: 'Could not update this product' }).code(406)
+      const errorMessage = 'Could not update this product'
+      return boom.notAcceptable(errorMessage)
     }
   },
   async delete (request, h) {
@@ -62,14 +70,16 @@ module.exports = {
       const productDoesNotExists = !(await Product.findById(idProduct))
 
       if (productDoesNotExists) {
-        return h.response().code(404)
+        const errorMessage = 'This product does not exists'
+        return boom.notFound(errorMessage)
       }
 
       await Product.findByIdAndDelete(idProduct)
 
       return h.response().code(204)
     } catch (err) {
-      return h.response({ error: 'Could not delete this product' }).code(400)
+      const errorMessage = 'Could not delete this product'
+      return boom.notAcceptable(errorMessage)
     }
   }
 }
