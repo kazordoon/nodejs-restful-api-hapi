@@ -16,24 +16,35 @@ module.exports = [
     options: {
       validate: {
         payload: userSchema
-      }
+      },
+      auth: false
     }
   },
   {
     method: 'POST',
     path: '/login',
-    handler: usersHandlers.login
+    handler: usersHandlers.login,
+    options: {
+      auth: false
+    }
+
   },
   /** products **/
   {
     method: 'GET',
     path: '/products',
-    handler: productsHandlers.getAll
+    handler: productsHandlers.getAll,
+    options: {
+      auth: false
+    }
   },
   {
     method: 'GET',
     path: '/products/{idProduct}',
-    handler: productsHandlers.getOne
+    handler: productsHandlers.getOne,
+    options: {
+      auth: false
+    }
   },
   {
     method: 'POST',
@@ -42,7 +53,8 @@ module.exports = [
     options: {
       validate: {
         payload: productSchemaRequired
-      }
+      },
+      auth: 'jwt'
     }
   },
   {
@@ -52,12 +64,16 @@ module.exports = [
     options: {
       validate: {
         payload: productSchema
-      }
+      },
+      auth: 'jwt'
     }
   },
   {
     method: 'DELETE',
     path: '/products/{idProduct}',
-    handler: productsHandlers.delete
+    handler: productsHandlers.delete,
+    options: {
+      auth: 'jwt'
+    }
   }
 ]

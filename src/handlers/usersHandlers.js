@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt')
 
 const User = require('../models/User')
 
+const generateToken = require('../utils/generateToken')
+
 module.exports = {
   async register (request, h) {
     try {
@@ -13,9 +15,14 @@ module.exports = {
         return h.response({ error: 'This user already exists, try other username' }).code(409)
       }
 
-      await User.create(request.payload)
+      const user = await User.create(request.payload)
 
-      return h.response({ success: true }).code(201)
+      const token = generateToken(user)
+
+      const response = h.response({ success: true, token })
+      response.header('Authorization', request.headers.authorization)
+
+      return response.code(201)
     } catch (err) {
       return h.response({ error: 'Could not create a new account' }).code(400)
     }
@@ -34,7 +41,12 @@ module.exports = {
         return h.response({ error: 'Authentication failed' }).code(401)
       }
 
-      return h.response({ success: true })
+      const token = generateToken(user)
+
+      const response = h.response({ success: true, token })
+      response.header('Authorization', request.headers.authorization)
+
+      return response
     } catch (err) {
       return h.response({ error: 'Authentication failed' }).code(401)
     }
