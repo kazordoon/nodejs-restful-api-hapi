@@ -2,30 +2,45 @@ const boom = require('@hapi/boom')
 
 const Product = require('../models/Product')
 
+const convertToJsonSpec = require('../utils/convertToJsonSpec')
+
 module.exports = {
   async getAll (request, h) {
     try {
       const products = await Product.find()
-      return h.response(products)
+
+      const data = products.map(convertToJsonSpec)
+      const response = {
+        data
+      }
+
+      return response
     } catch (err) {
+      console.log(err)
       const errorMessage = 'Could not list all existing products'
       return boom.internal(errorMessage)
     }
   },
   async getOne (request, h) {
-    const errorMessage = 'This product does not exists'
     try {
       const { idProduct } = request.params
 
       const product = await Product.findById(idProduct)
 
       if (!product) {
+        const errorMessage = 'This product does not exists'
         return boom.notFound(errorMessage)
       }
 
-      return h.response(product)
+      const data = convertToJsonSpec(product)
+      const response = {
+        data
+      }
+
+      return response
     } catch (err) {
-      return boom.notFound(errorMessage)
+      const errorMessage = 'Could not list this product'
+      return boom.badRequest(errorMessage)
     }
   },
   async create (request, h) {
@@ -38,10 +53,16 @@ module.exports = {
       }
 
       const product = await Product.create(request.payload)
-      return h.response(product).code(201)
+
+      const data = convertToJsonSpec(product)
+      const response = {
+        data
+      }
+
+      return h.response(response).code(201)
     } catch (err) {
       const errorMessage = 'Could not create a new product'
-      return boom.notAcceptable(errorMessage)
+      return boom.forbidden(errorMessage)
     }
   },
   async update (request, h) {
@@ -57,10 +78,16 @@ module.exports = {
       }
 
       const product = await Product.findByIdAndUpdate(idProduct, request.payload, options)
-      return h.response(product).code(201)
+
+      const data = convertToJsonSpec(product)
+      const response = {
+        data
+      }
+
+      return h.response(response)
     } catch (err) {
       const errorMessage = 'Could not update this product'
-      return boom.notAcceptable(errorMessage)
+      return boom.forbidden(errorMessage)
     }
   },
   async delete (request, h) {
@@ -79,7 +106,7 @@ module.exports = {
       return h.response().code(204)
     } catch (err) {
       const errorMessage = 'Could not delete this product'
-      return boom.notAcceptable(errorMessage)
+      return boom.forbidden(errorMessage)
     }
   }
 }
