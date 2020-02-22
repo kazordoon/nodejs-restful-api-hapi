@@ -1,9 +1,9 @@
 {
-  "name": "nodejs-api-hapi",
+  "name": "nodejs-restful-api-hapi",
   "version": "1.0.0",
-  "description": "API RESTful created with Node.js",
+  "description": "RESTful API made with Node.js where a user can list, create, update and delete products that are stored in a database.",
   "main": "src/server.js",
-  "repository": "git@github.com:kazordoon/nodejs-api-hapi.git",
+  "repository": "git@github.com:kazordoon/nodejs-restful-api-hapi.git",
   "author": "Felipe Barros <felipetech@tuta.io>",
   "license": "MIT",
   "scripts": {
