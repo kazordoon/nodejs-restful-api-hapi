@@ -12,7 +12,12 @@ require('./config/database')(process.env.MONGODB_URL)
 const init = async () => {
   const server = Hapi.server({
     host: process.env.HOST,
-    port: process.env.PORT
+    port: process.env.PORT,
+    routes: {
+      cors: {
+        origin: [process.env.CORS_ORIGIN]
+      }
+    }
   })
 
   /** Register JWT authentication **/
