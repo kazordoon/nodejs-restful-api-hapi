@@ -28,6 +28,59 @@ Copy the `.env.example` file to the` .env`, then you will need to set the variab
 * NPM: `npm run dev`
 * Yarn: `yarn dev`
 
+### API endpoints
+
+#### Products
+Action | Path | Parameters | Body | Method | Returns
+------ | --- | ---------- | ------ | ------- | -------
+List all products | /products | -- | -- | GET | All of the products
+List one product | /products/{idProduct} | idProduct | -- | GET | The product that has the same `id` as the one found in the `idProduct` parameter
+Create a new product | /products | - | A JSON with the fields `name`, `description` and `price` | POST | The created product
+Update a existing product | /products/{idProduct} | idProduct | A JSON with least one of the following fields: `name`, `description` or `price` | PATCH | The updated product
+Delete a product | /products/{idProduct} | idProduct | -- | DELETE | --
+
+#### Users
+Action | Path | Body | Method | Returns
+------ | --- | ---------- | ------ | -------
+Create a new user | /register | A JSON with the fields `username` and `password` | POST | A JSON with a success message and a token
+Login into an account | /login | A JSON with the fields `username` and `password` | POST | A JSON with a success message and a token
+
+### How to use the token
+
+You need to put the token on the authorization header.
+
+### Input data validation
+
+#### Users
+
+- username
+	- Type: string
+	- Minimum characters: 3
+	- Maximum characters: 20
+- password
+	- Type: string
+	- Minimum characters: 8
+	- Maximum characters: 50
+
+#### Products
+
+- name:
+	- Type: string
+	- Minimum characters: 2
+	- Maximum characters: 50
+- description
+	- Type: string
+	- Minimum characters: 20
+	- Maximum characters: 200
+- price
+	- Type: number
+	- Minimum: 0
+	- Maximum: 10000
+
+### Examples
+
+See the [EXAMPLES.md](EXAMPLES.md) to see the examples.
+
 ## Built With
 
 * [Node.js](https://nodejs.org) - JavaScript runtime environment that executes JavaScript code server-side
