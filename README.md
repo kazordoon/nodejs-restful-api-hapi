@@ -14,7 +14,7 @@ RESTful API made with Node.js where a user can list, create, update and delete p
 ### Installing
 
 - Clone the repository: `https://github.com/kazordoon/nodejs-restful-api-hapi.git`
-- Get in the project directory: `cd nodejs-restful-api-hapi.git`
+- Get in the project directory: `cd nodejs-restful-api-hapi`
 - Install the dependencies:
 	- NPM: `npm i` | Remove the file `yarn.lock` before installing with NPM
 	- Yarn: `yarn`
