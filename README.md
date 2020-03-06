@@ -77,9 +77,9 @@ You need to put the token on the authorization header.
 	- Minimum: 0
 	- Maximum: 10000
 
-### Examples
+## Examples
 
-See the [EXAMPLES.md](EXAMPLES.md) to see the examples.
+See the [EXAMPLES.md](EXAMPLES.md).
 
 ## Built With
 
