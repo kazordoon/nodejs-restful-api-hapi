@@ -33,7 +33,7 @@ Output:
 ```
 
 #### Update a product
-`curl http://localhost:3333/products/5e56a58d7a204a14549e5701 -H "Content-Type: application/json" -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNTZhMzA4N2EyMDRhMTQ1NDllNTcwMCIsInVzZXJuYW1lIjoiam9obmRvZSIsImlhdCI6MTU4MjczNjM0NSwiZXhwIjoxNTgyNzM5OTQ1fQ.2MfHmzH9GPBMNjUaGS3q3KAeRjH68hxkPvWyQ9QJOPw" -X PATCH d "{ \"name\": \"A new name for the product\" }"`
+`curl http://localhost:3333/products/5e56a58d7a204a14549e5701 -H "Content-Type: application/json" -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNTZhMzA4N2EyMDRhMTQ1NDllNTcwMCIsInVzZXJuYW1lIjoiam9obmRvZSIsImlhdCI6MTU4MjczNjM0NSwiZXhwIjoxNTgyNzM5OTQ1fQ.2MfHmzH9GPBMNjUaGS3q3KAeRjH68hxkPvWyQ9QJOPw" -X PATCH -d "{ \"name\": \"A new name for the product\" }"`
 
 Output:
 ```JSON
