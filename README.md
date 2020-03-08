@@ -90,7 +90,6 @@ See the [EXAMPLES.md](EXAMPLES.md).
 * [@hapi/boom](https://hapi.dev/family/boom) - HTTP-friendly error objects
 * [@hapi/joi](https://hapi.dev/family/joi/) - Data validator for JavaScript
 * [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - A library to help you hash passwords
-* [dotenv-safe](https://github.com/rolodato/dotenv-safe) - Load environment variables into .env file
 * [hapi-auth-jwt2](https://github.com/dwyl/hapi-auth-jwt2) - Authentication scheme/plugin for Hapi.js apps using JSON Web Tokens
 * [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - An implementation of JSON Web Tokens
 
