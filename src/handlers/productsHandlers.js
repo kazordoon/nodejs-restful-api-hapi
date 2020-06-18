@@ -1,8 +1,8 @@
 const boom = require('@hapi/boom')
 
 const Product = require('../models/Product')
-
 const convertToJsonSpec = require('../utils/convertToJsonSpec')
+const cache = require('../redis')
 
 module.exports = {
   async getAll (request, h) {
@@ -25,6 +25,22 @@ module.exports = {
     try {
       const { idProduct } = request.params
 
+      let data
+      let response
+
+      const isTheProductInCache = Boolean(
+        await cache.get(`product:${idProduct}`)
+      )
+      if (isTheProductInCache) {
+        const productInCache = await cache.get(`product:${idProduct}`)
+        data = convertToJsonSpec(productInCache)
+        response = {
+          data
+        }
+
+        return response
+      }
+
       const product = await Product.findById(idProduct)
 
       if (!product) {
@@ -32,8 +48,10 @@ module.exports = {
         return boom.notFound(errorMessage)
       }
 
-      const data = convertToJsonSpec(product)
-      const response = {
+      await cache.set(`product:${idProduct}`, product)
+
+      data = convertToJsonSpec(product)
+      response = {
         data
       }
 
