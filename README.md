@@ -92,6 +92,7 @@ See the [EXAMPLES.md](EXAMPLES.md).
 * [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - A library to help you hash passwords
 * [hapi-auth-jwt2](https://github.com/dwyl/hapi-auth-jwt2) - Authentication scheme/plugin for Hapi.js apps using JSON Web Tokens
 * [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - An implementation of JSON Web Tokens
+* [ioredis](https://github.com/luin/ioredis) - A robust, performance-focused and full-featured Redis client for Node.js
 
 ## Versioning
 
