@@ -8,6 +8,7 @@ RESTful API made with Node.js where a user can list, create, update and delete p
 ### Prerequisites
 
 - MongoDB
+- Redis
 - Node.js
 - NPM / Yarn
 
