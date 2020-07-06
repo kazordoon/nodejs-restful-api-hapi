@@ -41,7 +41,8 @@ module.exports = {
         return boom.unauthorized(errorMessage)
       }
 
-      if (!await bcrypt.compare(password, user.password)) {
+      const incorrectPassword = !(await bcrypt.compare(password, user.password))
+      if (incorrectPassword) {
         return boom.unauthorized(errorMessage)
       }
 

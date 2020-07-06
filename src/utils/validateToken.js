@@ -1,7 +1,8 @@
 const User = require('../models/User')
 
 module.exports = async (decoded, request, h) => {
-  if (!await User.findById(decoded.id)) {
+  const userNotFound = !(await User.findById(decoded.id))
+  if (userNotFound) {
     return { isValid: false }
   }
 
