@@ -16,7 +16,6 @@ module.exports = {
 
       return response
     } catch (err) {
-      console.log(err)
       const errorMessage = 'Could not list all existing products'
       return boom.internal(errorMessage)
     }
