@@ -89,9 +89,9 @@ module.exports = {
       const { idProduct } = request.params
       const options = { new: true }
 
-      const productDoesNotExists = !(await Product.findById(idProduct))
+      const productDoesNotExist = !(await Product.findById(idProduct))
 
-      if (productDoesNotExists) {
+      if (productDoesNotExist) {
         const errorMessage = 'This product does not exists'
         return boom.notFound(errorMessage)
       }
@@ -113,9 +113,9 @@ module.exports = {
     try {
       const { idProduct } = request.params
 
-      const productDoesNotExists = !(await Product.findById(idProduct))
+      const productDoesNotExist = !(await Product.findById(idProduct))
 
-      if (productDoesNotExists) {
+      if (productDoesNotExist) {
         const errorMessage = 'This product does not exists'
         return boom.notFound(errorMessage)
       }

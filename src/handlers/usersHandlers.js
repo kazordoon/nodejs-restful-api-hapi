@@ -10,9 +10,9 @@ module.exports = {
     try {
       const { username } = request.payload
 
-      const userExists = await User.findOne({ username })
+      const userAlreadyExists = await User.findOne({ username })
 
-      if (userExists) {
+      if (userAlreadyExists) {
         const errorMessage = 'This user already exists, try other username'
         return boom.conflict(errorMessage)
       }
