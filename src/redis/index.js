@@ -1,21 +1,21 @@
-const RedisStatic = require('ioredis');
-const redisConfig = require('../config/redis');
+const RedisStatic = require('ioredis')
+const redisConfig = require('../config/redis')
 
 class Redis {
-  constructor() {
-    this.redis = new RedisStatic(redisConfig);
+  constructor () {
+    this.redis = new RedisStatic(redisConfig)
 
-    this.logger();
+    this.logger()
   }
 
-  logger() {
+  logger () {
     this.redis.on('connect', () => {
-      console.log('Redis connected');
-    });
+      console.log('Redis connected')
+    })
     this.redis.on('error', (err) => {
-      console.error(`Redis error: ${err.message}`);
-    });
+      console.error(`Redis error: ${err.message}`)
+    })
   }
 }
 
-module.exports = new Redis().redis;
+module.exports = new Redis().redis
