@@ -121,6 +121,7 @@ module.exports = {
       }
 
       await Product.findByIdAndDelete(idProduct)
+      await cache.del(`product:${idProduct}`)
 
       return h.response().code(204)
     } catch (err) {
