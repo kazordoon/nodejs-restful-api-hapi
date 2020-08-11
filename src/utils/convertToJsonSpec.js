@@ -1,15 +1,15 @@
 module.exports = (product) => {
-  const { id, name, description, price } = product
+  const { _id, name, description, price } = product
   const response = {
     type: 'products',
-    id,
+    _id,
     attributes: {
       name,
       description,
       price
     },
     links: {
-      self: `/products/${id}`
+      self: `/products/${_id}`
     }
   }
 
