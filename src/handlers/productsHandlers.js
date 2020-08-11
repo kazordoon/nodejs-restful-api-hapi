@@ -31,7 +31,9 @@ module.exports = {
         await cache.get(`product:${idProduct}`)
       )
       if (isTheProductInCache) {
-        const productInCache = await cache.get(`product:${idProduct}`)
+        const productInCache = JSON.parse(
+          await cache.get(`product:${idProduct}`)
+        )
         data = convertToJsonSpec(productInCache)
         response = {
           data
@@ -47,7 +49,7 @@ module.exports = {
         return boom.notFound(errorMessage)
       }
 
-      await cache.set(`product:${idProduct}`, product)
+      await cache.set(`product:${idProduct}`, JSON.stringify(product))
 
       data = convertToJsonSpec(product)
       response = {
