@@ -1,5 +1,5 @@
-const productsHandlers = require('./handlers/productsHandlers')
-const usersHandlers = require('./handlers/usersHandlers')
+const productsHandler = require('./handlers/productsHandler')
+const usersHandler = require('./handlers/usersHandler')
 
 const userSchema = require('./schemas/userSchema')
 const {
@@ -12,7 +12,7 @@ module.exports = [
   {
     method: 'POST',
     path: '/register',
-    handler: usersHandlers.register,
+    handler: usersHandler.register,
     options: {
       validate: {
         payload: userSchema
@@ -23,7 +23,7 @@ module.exports = [
   {
     method: 'POST',
     path: '/login',
-    handler: usersHandlers.login,
+    handler: usersHandler.login,
     options: {
       auth: false
     }
@@ -33,7 +33,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/products',
-    handler: productsHandlers.getAll,
+    handler: productsHandler.getAll,
     options: {
       auth: false
     }
@@ -41,7 +41,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/products/{idProduct}',
-    handler: productsHandlers.getOne,
+    handler: productsHandler.getOne,
     options: {
       auth: false
     }
@@ -49,7 +49,7 @@ module.exports = [
   {
     method: 'POST',
     path: '/products',
-    handler: productsHandlers.create,
+    handler: productsHandler.create,
     options: {
       validate: {
         payload: productSchemaRequired
@@ -60,7 +60,7 @@ module.exports = [
   {
     method: 'PATCH',
     path: '/products/{idProduct}',
-    handler: productsHandlers.update,
+    handler: productsHandler.update,
     options: {
       validate: {
         payload: productSchema
@@ -71,7 +71,7 @@ module.exports = [
   {
     method: 'DELETE',
     path: '/products/{idProduct}',
-    handler: productsHandlers.delete,
+    handler: productsHandler.delete,
     options: {
       auth: 'jwt'
     }
