@@ -8,15 +8,27 @@ const cache = require('../redis')
 module.exports = {
   async index (request, h) {
     try {
+      const { page = 1, limit = 10 } = request.query
+
+      const numericPage = Number(page)
+      const numericLimit = Number(limit)
+
       const products = await Product.find()
+        .limit(numericLimit)
+        .skip((numericPage - 1) * limit)
+        .exec()
+
+      const productCount = await Product.countDocuments()
+      const totalPages = Math.ceil(productCount / limit)
 
       const mappedProducts = products.map((product) => product._doc)
+
       const pagePath = '/products'
-      const response = JsonSpec.convertMany(
-        'products',
-        mappedProducts,
-        pagePath
-      )
+      const response = JsonSpec.convertMany('products', mappedProducts, {
+        path: pagePath,
+        current: numericPage,
+        total: totalPages
+      })
 
       return response
     } catch (err) {

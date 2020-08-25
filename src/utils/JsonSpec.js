@@ -27,9 +27,24 @@ class JsonSpec {
   /**
    * @param {string} type
    * @param {{_id: string, ...attributes}[]} targets
-   * @param {string} pagePath
+   * @param {{ path: string, current: number, total: number }} page
    */
-  static convertMany (type, targets, pagePath) {
+  static convertMany (type, targets, page) {
+    const firstPage = 1
+    const lastPage = page.total
+    let nextPage = page.current + 1
+    let previousPage = page.current - 1
+
+    const nextPageExceedsTheLastPage = nextPage > lastPage
+    if (nextPageExceedsTheLastPage) {
+      nextPage = null
+    }
+
+    const previousPageDoesNotExist = previousPage === 0
+    if (previousPageDoesNotExist) {
+      previousPage = null
+    }
+
     const data = targets.map((target) => {
       return {
         type,
@@ -40,7 +55,11 @@ class JsonSpec {
       }
     })
     const links = {
-      self: pagePath
+      self: page.path,
+      first: firstPage,
+      prev: previousPage,
+      next: nextPage,
+      last: lastPage
     }
 
     const response = {
