@@ -1,6 +1,6 @@
 {
   "name": "nodejs-restful-api-hapi",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "RESTful API made with Node.js where a user can list, create, update and delete products that are stored in a database.",
   "main": "src/server.js",
   "repository": "git@github.com:kazordoon/nodejs-restful-api-hapi.git",
