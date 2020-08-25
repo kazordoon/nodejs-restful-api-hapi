@@ -6,7 +6,7 @@ const getNotNullProperties = require('../utils/getNotNullProperties')
 const cache = require('../redis')
 
 module.exports = {
-  async getAll (request, h) {
+  async index (request, h) {
     try {
       const products = await Product.find()
 
@@ -24,7 +24,7 @@ module.exports = {
       return boom.internal(errorMessage)
     }
   },
-  async getOne (request, h) {
+  async show (request, h) {
     try {
       const { idProduct } = request.params
 
@@ -60,7 +60,7 @@ module.exports = {
       return boom.badRequest(errorMessage)
     }
   },
-  async create (request, h) {
+  async store (request, h) {
     try {
       const productExists = await Product.findOne({
         name: request.payload.name
@@ -110,7 +110,7 @@ module.exports = {
       return boom.forbidden(errorMessage)
     }
   },
-  async delete (request, h) {
+  async destroy (request, h) {
     try {
       const { idProduct } = request.params
 

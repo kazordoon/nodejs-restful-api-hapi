@@ -33,7 +33,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/products',
-    handler: productsHandler.getAll,
+    handler: productsHandler.index,
     options: {
       auth: false
     }
@@ -41,7 +41,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/products/{idProduct}',
-    handler: productsHandler.getOne,
+    handler: productsHandler.show,
     options: {
       auth: false
     }
@@ -49,7 +49,7 @@ module.exports = [
   {
     method: 'POST',
     path: '/products',
-    handler: productsHandler.create,
+    handler: productsHandler.store,
     options: {
       validate: {
         payload: productSchemaRequired
@@ -71,7 +71,7 @@ module.exports = [
   {
     method: 'DELETE',
     path: '/products/{idProduct}',
-    handler: productsHandler.delete,
+    handler: productsHandler.destroy,
     options: {
       auth: 'jwt'
     }
