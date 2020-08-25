@@ -1,7 +1,8 @@
 const boom = require('@hapi/boom')
 
 const Product = require('../models/Product')
-const convertToJsonSpec = require('../utils/convertToJsonSpec')
+const JsonSpec = require('../utils/JsonSpec')
+const getNotNullProperties = require('../utils/getNotNullProperties')
 const cache = require('../redis')
 
 module.exports = {
@@ -9,10 +10,13 @@ module.exports = {
     try {
       const products = await Product.find()
 
-      const data = products.map(convertToJsonSpec)
-      const response = {
-        data
-      }
+      const mappedProducts = products.map((product) => product._doc)
+      const pagePath = '/products'
+      const response = JsonSpec.convertMany(
+        'products',
+        mappedProducts,
+        pagePath
+      )
 
       return response
     } catch (err) {
@@ -24,7 +28,7 @@ module.exports = {
     try {
       const { idProduct } = request.params
 
-      let data
+      const pagePath = `/products/${idProduct}`
       let response
 
       const isTheProductInCache = Boolean(
@@ -34,10 +38,7 @@ module.exports = {
         const productInCache = JSON.parse(
           await cache.get(`product:${idProduct}`)
         )
-        data = convertToJsonSpec(productInCache)
-        response = {
-          data
-        }
+        response = JsonSpec.convertOne('products', productInCache, pagePath)
 
         return response
       }
@@ -49,12 +50,9 @@ module.exports = {
         return boom.notFound(errorMessage)
       }
 
-      await cache.set(`product:${idProduct}`, JSON.stringify(product))
+      await cache.set(`product:${idProduct}`, JSON.stringify(product._doc))
 
-      data = convertToJsonSpec(product)
-      response = {
-        data
-      }
+      response = JsonSpec.convertOne('products', product._doc, pagePath)
 
       return response
     } catch (err) {
@@ -64,7 +62,9 @@ module.exports = {
   },
   async create (request, h) {
     try {
-      const productExists = await Product.findOne({ name: request.payload.name })
+      const productExists = await Product.findOne({
+        name: request.payload.name
+      })
 
       if (productExists) {
         const errorMessage = 'This product already exists'
@@ -73,13 +73,12 @@ module.exports = {
 
       const product = await Product.create(request.payload)
 
-      const data = convertToJsonSpec(product)
-      const response = {
-        data
-      }
+      const pagePath = `/products/${product.id}`
+      const response = JsonSpec.convertOne('products', product._doc, pagePath)
 
       return h.response(response).code(201)
     } catch (err) {
+      console.log(err)
       const errorMessage = 'Could not create a new product'
       return boom.forbidden(errorMessage)
     }
@@ -87,7 +86,7 @@ module.exports = {
   async update (request, h) {
     try {
       const { idProduct } = request.params
-      const options = { new: true }
+      const { name = null, description = null, price = null } = request.payload
 
       const productDoesNotExist = !(await Product.findById(idProduct))
 
@@ -96,15 +95,17 @@ module.exports = {
         return boom.notFound(errorMessage)
       }
 
-      const product = await Product.findByIdAndUpdate(idProduct, request.payload, options)
+      const payload = { name, description, price }
+      const updatedFields = getNotNullProperties(payload)
 
-      const data = convertToJsonSpec(product)
-      const response = {
-        data
-      }
+      const product = await Product.findByIdAndUpdate(idProduct, updatedFields)
+
+      const pagePath = `/products/${product.id}`
+      const response = JsonSpec.convertOne('producs', updatedFields, pagePath)
 
       return h.response(response)
     } catch (err) {
+      console.log(err)
       const errorMessage = 'Could not update this product'
       return boom.forbidden(errorMessage)
     }
