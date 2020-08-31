@@ -23,9 +23,8 @@ module.exports = {
 
       const mappedProducts = products.map((product) => product._doc)
 
-      const pagePath = '/products'
       const response = JsonSpec.convertMany('products', mappedProducts, {
-        path: pagePath,
+        path: '/products',
         current: numericPage,
         total: totalPages
       })
@@ -111,6 +110,7 @@ module.exports = {
       const updatedFields = getNotNullProperties(payload)
 
       const product = await Product.findByIdAndUpdate(idProduct, updatedFields)
+      await cache.del(`product:${idProduct}`)
 
       const pagePath = `/products/${product.id}`
       const response = JsonSpec.convertOne('producs', updatedFields, pagePath)
