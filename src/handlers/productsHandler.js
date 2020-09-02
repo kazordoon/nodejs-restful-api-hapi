@@ -57,7 +57,7 @@ module.exports = {
       const product = await Product.findById(idProduct)
 
       if (!product) {
-        const errorMessage = 'This product does not exists'
+        const errorMessage = 'This product does not exist'
         return boom.notFound(errorMessage)
       }
 
@@ -102,7 +102,7 @@ module.exports = {
       const productDoesNotExist = !(await Product.findById(idProduct))
 
       if (productDoesNotExist) {
-        const errorMessage = 'This product does not exists'
+        const errorMessage = 'This product does not exist'
         return boom.notFound(errorMessage)
       }
 
@@ -129,7 +129,7 @@ module.exports = {
       const productDoesNotExist = !(await Product.findById(idProduct))
 
       if (productDoesNotExist) {
-        const errorMessage = 'This product does not exists'
+        const errorMessage = 'This product does not exist'
         return boom.notFound(errorMessage)
       }
 
