@@ -23,7 +23,7 @@ Output:
 }
 ```
 
-#### Login into an account
+#### Sign in to an account
 
 ```bash
 curl http://localhost:3333/login \
