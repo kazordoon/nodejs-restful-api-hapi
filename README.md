@@ -22,7 +22,7 @@ RESTful API made with Node.js where a user can list, create, update and delete p
 
 ### Setting environment variables
 
-Copy the `.env.example` file to the` .env`, then you will need to set the variable values ​​according to your environment.
+Copy the `.env.example` file to the` .env`, then you will need to set the variable values into the `.env` file according to your environment.
 
 ### Running the server
 
